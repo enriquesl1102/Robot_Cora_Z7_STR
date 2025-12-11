@@ -1,0 +1,21 @@
+project Demo is
+
+   for Languages use ("Ada");
+   for Target use "arm-eabi";
+   for Runtime ("Ada") use "ravenscar-full-zynq7000";
+   for Main use ("demo.adb");
+   for Object_Dir use ".";
+   for Source_Dirs use (".");
+   for Exec_Dir use ".";
+
+   --package Compiler is
+   --   for Default_Switches ("ada") use ("-g", "-O0", "-gnatwa", "-gnatQ", "-gnatw.X");
+   --end Compiler;
+
+  --package Linker is
+  -- for Default_Switches ("Ada") use (
+  --    "-Wl,--gc-sections, -T ./mi_ram.ld, -Xlinker -v");
+     -- "-Wl,--print-memory-usage");
+  --end Linker;
+
+end Demo;

@@ -1,0 +1,20 @@
+[GENERATED OBJECT FILE]
+b__demo.o
+[PROJECT FILES]
+C:\Users\enriq\Desktop\Proyecto\HolaMundo\demo.gpr
+20251127091718 26677d0303b8ec7624f26401a14e76d7
+[BOUND OBJECT FILES]
+C:\Users\enriq\Desktop\Proyecto\HolaMundo\uart.o
+C:\Users\enriq\Desktop\Proyecto\HolaMundo\demo.o
+[GENERATED SOURCE FILES]
+b__demo.ads
+b__demo.adb
+b__demo.ali
+[RESULTING OPTIONS]
+-LC:\Users\enriq\Desktop\Proyecto\HolaMundo\
+-LC:\Users\enriq\Desktop\Proyecto\HolaMundo\
+-LC:\gnat2020-arm\arm-eabi\lib\gnat\ravenscar-full-zynq7000\adalib\
+-static
+-static-libgcc
+C:\gnat2020-arm\arm-eabi\lib\gnat\ravenscar-full-zynq7000\adalib\libgnarl.a
+C:\gnat2020-arm\arm-eabi\lib\gnat\ravenscar-full-zynq7000\adalib\libgnat.a

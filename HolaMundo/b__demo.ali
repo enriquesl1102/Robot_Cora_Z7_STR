@@ -1,0 +1,106 @@
+V "GNAT Lib v2020"
+A -gnatA
+A --RTS=C:\gnat2020-arm\arm-eabi\lib\gnat\ravenscar-full-zynq7000\
+A -mfloat-abi=hard
+A -mfpu=vfpv3
+A -gnatA
+A -gnatWb
+A -gnatiw
+A -gnatws
+A -mlittle-endian
+A -mfloat-abi=hard
+A -mcpu=cortex-a9
+A -mfpu=vfpv3
+A -marm
+A -mno-unaligned-access
+A -march=armv7-a+mp+sec+vfpv3
+P DB ZX
+
+RN
+RV NO_DEFAULT_INITIALIZATION
+RV NO_IMPLEMENTATION_ATTRIBUTES
+RV NO_IMPLEMENTATION_PRAGMAS
+RV NO_IMPLICIT_LOOPS
+RV NO_ELABORATION_CODE
+RV NO_OBSOLESCENT_FEATURES
+
+U ada_main%b		b__demo.adb		b3d231c4 OO PK IL
+Z system%s		system.ads		system.ali
+
+U ada_main%s		b__demo.ads		5a97830d EE NE OO PK IL
+W system%s		system.ads		system.ali
+W system.parameters%s	s-parame.adb		s-parame.ali
+W system.secondary_stack%s  s-secsta.adb	s-secsta.ali
+
+D b__demo.ads		20251127150952 40dc882c ada_main%s
+D b__demo.adb		20251127150952 f30eb9e8 ada_main%b
+D system.ads		20210507084300 da70b04d system%s
+D s-parame.ads		20210507084300 96993d70 system.parameters%s
+D s-secsta.ads		20210507084300 56a2861c system.secondary_stack%s
+D s-stoele.ads		20210507084300 2dc34a04 system.storage_elements%s
+G a e
+G c Z s b [adainit ada_main 16 14 none]
+G c Z s b [adafinal ada_main 19 14 none]
+G c Z s b [main ada_main 22 14 none]
+G c Z b b [Tsec_default_sized_stacksBIP ada_main 17 4 none]
+G c Z b b [ada_main_program ada_main 128 14 none]
+X 1 b__demo.ads
+6K9*ada_main 136l5 136e13 2|7b14 161l5 161t13
+9a4*GNAT_Version{string} 11r22
+13a4*Ada_Main_Program_Name{string} 14r22 2|139r52
+16U14*adainit 17i<c,adainit>22 2|40b14 126l8 126t15 144s7
+19U14*adafinal 20i<c,adafinal>22 2|24b14 38l8 38t16 146s7
+22U14*main 23i<c,main>22 2|131b14 148t7
+X 2 b__demo.adb
+9i4 E084{short_integer} 9m46 9r46 116m7 116r15
+10i4 E017{short_integer} 10m46 10r46 120m7 120r15
+11i4 E042{short_integer} 11m46 11r46 119m7 119r15
+12i4 E099{short_integer} 12m46 12r46 114m7 114r15
+13i4 E040{short_integer} 13m46 13r46 118m7 118r15
+14i4 E006{short_integer} 14m46 14r46 122m7 122r15
+15i4 E106{short_integer} 15m46 15r46 124m7 124r15
+17a4 Sec_Default_Sized_Stacks(5|43R9) 107m32 107r32
+19a4 Local_Priority_Specific_Dispatching{string} 95r9
+20a4 Local_Interrupt_States{string} 98r27
+22b4 Is_Elaborated{boolean} 32r14 35m7 84r10 87m7
+25U17*s_stalib_adafinal 26b<ada,system__standard_library__adafinal>27 37s7
+28U17*Runtime_Finalize 29b<c,__gnat_runtime_finalize>25 36s7
+41i7*Main_Priority{integer} 42m25 42r25 88m7
+43i7*Time_Slice_Value{integer} 44m25 44r25 89m7
+45e7*WC_Encoding{character} 46m25 46r25 90m7
+47e7*Locking_Policy{character} 48m25 48r25 91m7
+49e7*Queuing_Policy{character} 50m25 50r25 92m7
+51e7*Task_Dispatching_Policy{character} 52m25 52r25 93m7
+53m7*Priority_Specific_Dispatching{3|75M9} 54m25 54r25 94m7
+55i7*Num_Specific_Dispatching{integer} 56m25 56r25 96m7
+57i7*Main_CPU{integer} 58m25 58r25 97m7
+59m7*Interrupt_States{3|75M9} 60m25 60r25 98m7
+61i7*Num_Interrupt_States{integer} 62m25 62r25 99m7
+63i7*Unreserve_All_Interrupts{integer} 64m25 64r25 100m7
+65i7*Detect_Blocking{integer} 66m25 66r25 101m7
+67i7*Default_Stack_Size{integer} 68m25 68r25 102m7
+69i7*Default_Secondary_Stack_Size{4|56I9} 70m25 70r25 105m7
+71m7*Bind_Env_Addr{3|75M9} 72m25 72r25
+74U17*Runtime_Initialize 74>37 75b<c,__gnat_runtime_initialize>25 109s7
+74i37 Install_Handler{integer}
+76U17*Start_Slave_CPUs 77b<c,__gnat_start_slave_cpus>25 125s7
+78i7*Binder_Sec_Stacks_Count{natural} 79m27 79r27 106m7
+80m7*Default_Sized_SS_Pool{3|75M9} 81m27 81r27 107m7
+128U14 Ada_Main_Program 129b<ada,_ada_demo>24 145s7
+132U17*Initialize 132>29 133b<c,__gnat_initialize>25 143s7
+132m29 Addr{3|75M9}
+135U17*Finalize 136b<c,__gnat_finalize>25 147s7
+137a7 SEH(integer) 143m19 143r19
+139m7 Ensure_Reference{3|75M9} 140r24
+X 3 system.ads
+45K9*System 1|3w6 4r6 5r6 2|17r57 17r90 53r39 59r26 69r38 71r23 80r31 105r39
+. 132r36 139r34 3|168e11
+75M9*Address 2|53r46 59r33 71r30 80r38 132r43 139r41
+X 4 s-parame.ads
+49K16*Parameters 1|4w13 2|17r97 69r45 105r46 4|173e22
+56I9*Size_Type<integer> 2|69r56
+87i4*Runtime_Default_Sec_Stack_Size{56I9} 2|17r108 105r57
+X 5 s-secsta.ads
+37K16*Secondary_Stack 1|5w13 2|17r64 5|154e27
+43R9*SS_Stack 2|17r80 5|119e14
+

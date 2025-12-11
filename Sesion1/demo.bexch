@@ -1,0 +1,21 @@
+[GENERATED OBJECT FILE]
+b__demo.o
+[PROJECT FILES]
+C:\Users\enriq\Desktop\Proyecto\Sesion1\demo.gpr
+20250130102942 2ad08e2d03e3c43eaebfa92414a6175c
+[BOUND OBJECT FILES]
+C:\Users\enriq\Desktop\Proyecto\Sesion1\uart.o
+C:\Users\enriq\Desktop\Proyecto\Sesion1\gpio.o
+C:\Users\enriq\Desktop\Proyecto\Sesion1\demo.o
+[GENERATED SOURCE FILES]
+b__demo.ads
+b__demo.adb
+b__demo.ali
+[RESULTING OPTIONS]
+-LC:\Users\enriq\Desktop\Proyecto\Sesion1\
+-LC:\Users\enriq\Desktop\Proyecto\Sesion1\
+-LC:\gnat2020-arm\arm-eabi\lib\gnat\ravenscar-full-zynq7000\adalib\
+-static
+-static-libgcc
+C:\gnat2020-arm\arm-eabi\lib\gnat\ravenscar-full-zynq7000\adalib\libgnarl.a
+C:\gnat2020-arm\arm-eabi\lib\gnat\ravenscar-full-zynq7000\adalib\libgnat.a

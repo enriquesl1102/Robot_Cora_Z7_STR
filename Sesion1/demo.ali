@@ -1,0 +1,149 @@
+V "GNAT Lib v2020"
+M P W=b
+A -gnatA
+A --RTS=C:\gnat2020-arm\arm-eabi\lib\gnat\ravenscar-full-zynq7000\
+A -mlittle-endian
+A -mfloat-abi=hard
+A -mcpu=cortex-a9
+A -mfpu=vfpv3
+A -marm
+A -mno-unaligned-access
+A -march=armv7-a+mp+sec+vfpv3
+P DB LC TF  ZX
+
+RN
+RV NO_DELAY
+RV NO_DIRECT_BOOLEAN_OPERATORS
+RV NO_FIXED_POINT
+RV NO_FLOATING_POINT
+RV NO_RELATIVE_DELAY
+RV NO_DYNAMIC_SIZED_OBJECTS
+RV NO_IMPLEMENTATION_PRAGMAS
+RV MAX_ENTRY_QUEUE_LENGTH=1+
+
+U demo%b		demo.adb		8d8a1a9f NE OO SU
+W ada%s			ada.ads			ada.ali
+W ada.real_time%s	a-reatim.adb		a-reatim.ali
+Z ada.real_time.delays%s  a-retide.adb		a-retide.ali
+W gpio%s		gpio.adb		gpio.ali
+Z interfaces%s		interfac.ads		interfac.ali
+W system%s		system.ads		system.ali
+Z system.img_bool%s	s-imgboo.adb		s-imgboo.ali
+Z system.img_int%s	s-imgint.adb		s-imgint.ali
+Z system.img_real%s	s-imgrea.adb		s-imgrea.ali
+W system.multiprocessors%s  s-multip.adb	s-multip.ali
+Z system.relative_delays%s  s-reldel.adb	s-reldel.ali
+W uart%s		uart.adb		uart.ali
+
+D ada.ads		20210507084300 76789da1 ada%s
+D a-except.ads		20210507084300 a7106115 ada.exceptions%s
+D a-reatim.ads		20210507084300 4c16970e ada.real_time%s
+D a-retide.ads		20210507084300 081cdaa4 ada.real_time.delays%s
+D a-unccon.ads		20210507084300 0e9b276f ada.unchecked_conversion%s
+D demo.adb		20251210185330 c5411877 demo%b
+D gpio.ads		20251210090538 7777d1ff gpio%s
+D interfac.ads		20210507084300 5ab55268 interfaces%s
+D system.ads		20210507084300 da70b04d system%s
+D s-bb.ads		20210507084300 09e072ae system.bb%s
+D s-bbbosu.ads		20210507084300 b43d4db6 system.bb.board_support%s
+D s-bbcppr.ads		20210507084300 59b80593 system.bb.cpu_primitives%s
+D s-bbcpsp.ads		20210507084300 720822f6 system.bb.cpu_specific%s
+D s-bbinte.ads		20210507084300 c88d39da system.bb.interrupts%s
+D s-bbpara.ads		20210507084300 b8769de5 system.bb.parameters%s
+D s-bbthre.ads		20210507084300 c94b446f system.bb.threads%s
+D s-bbthqu.ads		20210507084300 db3cad46 system.bb.threads.queues%s
+D s-bbtime.ads		20210507084300 ad086247 system.bb.time%s
+D s-imgboo.ads		20210507084300 f5d971eb system.img_bool%s
+D s-imgint.ads		20210507084300 02dbe0c2 system.img_int%s
+D s-imgrea.ads		20210507084300 9f9b9792 system.img_real%s
+D s-multip.ads		20210507084300 f33e0e35 system.multiprocessors%s
+D s-mufalo.ads		20210507084300 3dca0374 system.multiprocessors.fair_locks%s
+D s-musplo.ads		20210507084300 69fa25c4 system.multiprocessors.spin_locks%s
+D s-osinte.ads		20210507084300 229b14dd system.os_interface%s
+D s-parame.ads		20210507084300 96993d70 system.parameters%s
+D s-reldel.ads		20210507084300 d2ec2544 system.relative_delays%s
+D s-secsta.ads		20210507084300 56a2861c system.secondary_stack%s
+D s-stalib.ads		20210507084300 6b7a13f2 system.standard_library%s
+D s-stoele.ads		20210507084300 2dc34a04 system.storage_elements%s
+D s-tasinf.ads		20210507084300 801abd01 system.task_info%s
+D s-taspri.ads		20210507084300 351848fa system.task_primitives%s
+D s-taskin.ads		20210507084300 58b15916 system.tasking%s
+D s-taprob.ads		20210507084300 c8fc0753 system.tasking.protected_objects%s
+D s-tasres.ads		20210507084300 0c8ef6fb system.tasking.restricted%s
+D s-tarest.ads		20210507084300 c88b6d9a system.tasking.restricted.stages%s
+D s-traent.ads		20210507084300 005bf670 system.traceback_entries%s
+D s-unstyp.ads		20210507084300 5ecf7212 system.unsigned_types%s
+D uart.ads		20250130102942 80944a2c uart%s
+G a e
+G c Z b b [demo standard 6 11 none]
+G r c none [demo standard 6 11 none] [inituart uart 3 13 none]
+G r c none [demo standard 6 11 none] [init gpio 184 14 none]
+G r p none [demo standard 6 11 none] [get_s_i gpio__datos_sensores 175 16 none]
+G r p none [demo standard 6 11 none] [get_s_d gpio__datos_sensores 176 16 none]
+G r p none [demo standard 6 11 none] [get_infrarrojos gpio__datos_sensores 177 16 none]
+G r p none [demo standard 6 11 none] [get_distancia gpio__datos_sensores 174 16 none]
+G r c none [demo standard 6 11 none] [put uart 6 13 none]
+G r c none [demo standard 6 11 none] [put_line uart 9 13 none]
+G r c none [demo standard 6 11 none] [enciendergb gpio 190 14 none]
+X 1 ada.ads
+16K9*Ada 20e8 6|2r6 2r25 174r16
+X 3 a-reatim.ads
+41K13*Real_Time 182e18 6|2w10 2r29 174r20
+51M9*Time<18|46M9>
+53m4*Time_Last{51M9} 6|174r30
+X 6 demo.adb
+6U11*Demo 6b11 176l5 176t9
+8b4 izq{boolean} 58m7 73r37 92r19 111r21
+8b9 drcha{boolean} 60m7 74r40 92r26 111r28
+9f4 distancia{float} 69m7 78r47 97r19 97r41 102r19 117r16 123r16
+9f15 d_min{float} 42m4 97r31 117r29
+9f22 d_max{float} 43m4 102r31 123r29
+10i4 n_inf{integer} 65m7 75r46 88r16
+10i11 n_infL{integer} 46m4 88r25
+13E9 estado 13e92 14r14
+13n20 Inicio{13E9} 39r15 83r15
+13n28 Avanzar{13E9} 84r24 86r15 106r27 112r27 118r27 124r27 131r24 136r15
+13n37 Girar_Izq{13E9} 93r27 109r15 138r15
+13n48 Girar_Der{13E9} 138r27
+13n59 Corregir_Izq{13E9} 98r27 115r15 140r15
+13n73 Corregir_Der{13E9} 103r27 121r15 140r30
+13n87 Meta{13E9} 89r27 127r15 142r15
+14e4 eActual{13E9} 39m4 82r12 84m13 89m16 93m16 98m16 103m16 106m16 112m16
+. 118m16 124m16 131m13 135r12
+17U14 Check_SMP 17b14 27l8 27t17
+X 7 gpio.ads
+5K9*GPIO 6|3w6 3r16 58r15 60r16 7|201e9
+31n21*off{31E9} 6|139r31 145r25 145r30
+31n26*red{31E9} 6|143r25 143r30
+31n31*green{31E9} 6|137r25 137r32
+31n38*blue{31E9} 6|139r25
+31n44*violet{31E9} 6|141r25 141r33
+169w14*Datos_Sensores 6|58r20 60r21 65r16 69r20
+174V16 Get_Distancia{float} 6|69s35
+175V16 Get_S_I{boolean} 6|58s35
+176V16 Get_S_D{boolean} 6|60s36
+177V16 Get_Infrarrojos{integer} 6|65s31
+184U14*Init 6|37s4
+190U14*EnciendeRGB 6|137s13 139s13 141s13 143s13 145s13
+X 9 system.ads
+45K9*System 6|4r6 4r33 20r34 22r10 9|168e11
+X 18 s-bbtime.ads
+46M9*Time
+X 22 s-multip.ads
+18K16*Multiprocessors 6|4w13 4r40 20r41 22r17 22|31e27
+21I9*CPU_Range<short_short_integer> 6|20r18
+23I12*CPU{21I9}
+27V13*Number_Of_CPUs{23I12} 6|20s57 22s33
+X 28 s-secsta.ads
+46P9*SS_Stack_Ptr(43R9)
+X 33 s-taskin.ads
+407V13*Get_Sec_Stack{28|46P9} 408i<c,__gnat_get_secondary_stack>22
+X 36 s-tarest.ads
+232U14*Activate_All_Tasks_Sequential 233i<c,__gnat_activate_all_tasks>22
+X 39 uart.ads
+1K9*UART 6|1w6 1r16 39|12e9
+3U13*InitUART 6|31s4
+3i22 nUart{integer} 6|31r13
+6U13*Put 6|73s7 74s7 75s7
+9U13*Put_Line 6|19s7 23s10 25s10 78s7
+
