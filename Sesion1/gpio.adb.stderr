@@ -1,0 +1,1 @@
+gpio.adb:153:07: warning: variable "t_ini" is never read and never assigned

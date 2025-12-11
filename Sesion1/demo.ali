@@ -21,14 +21,13 @@ RV NO_DYNAMIC_SIZED_OBJECTS
 RV NO_IMPLEMENTATION_PRAGMAS
 RV MAX_ENTRY_QUEUE_LENGTH=1+
 
-U demo%b		demo.adb		8d8a1a9f NE OO SU
+U demo%b		demo.adb		450dd2bf NE OO SU
 W ada%s			ada.ads			ada.ali
 W ada.real_time%s	a-reatim.adb		a-reatim.ali
 Z ada.real_time.delays%s  a-retide.adb		a-retide.ali
 W gpio%s		gpio.adb		gpio.ali
 Z interfaces%s		interfac.ads		interfac.ali
 W system%s		system.ads		system.ali
-Z system.img_bool%s	s-imgboo.adb		s-imgboo.ali
 Z system.img_int%s	s-imgint.adb		s-imgint.ali
 Z system.img_real%s	s-imgrea.adb		s-imgrea.ali
 W system.multiprocessors%s  s-multip.adb	s-multip.ali
@@ -40,8 +39,8 @@ D a-except.ads		20210507084300 a7106115 ada.exceptions%s
 D a-reatim.ads		20210507084300 4c16970e ada.real_time%s
 D a-retide.ads		20210507084300 081cdaa4 ada.real_time.delays%s
 D a-unccon.ads		20210507084300 0e9b276f ada.unchecked_conversion%s
-D demo.adb		20251210185330 c5411877 demo%b
-D gpio.ads		20251210090538 7777d1ff gpio%s
+D demo.adb		20251211144834 4994de37 demo%b
+D gpio.ads		20251211144036 3325df9f gpio%s
 D interfac.ads		20210507084300 5ab55268 interfaces%s
 D system.ads		20210507084300 da70b04d system%s
 D s-bb.ads		20210507084300 09e072ae system.bb%s
@@ -53,7 +52,6 @@ D s-bbpara.ads		20210507084300 b8769de5 system.bb.parameters%s
 D s-bbthre.ads		20210507084300 c94b446f system.bb.threads%s
 D s-bbthqu.ads		20210507084300 db3cad46 system.bb.threads.queues%s
 D s-bbtime.ads		20210507084300 ad086247 system.bb.time%s
-D s-imgboo.ads		20210507084300 f5d971eb system.img_bool%s
 D s-imgint.ads		20210507084300 02dbe0c2 system.img_int%s
 D s-imgrea.ads		20210507084300 9f9b9792 system.img_real%s
 D s-multip.ads		20210507084300 f33e0e35 system.multiprocessors%s
@@ -77,73 +75,73 @@ D uart.ads		20250130102942 80944a2c uart%s
 G a e
 G c Z b b [demo standard 6 11 none]
 G r c none [demo standard 6 11 none] [inituart uart 3 13 none]
-G r c none [demo standard 6 11 none] [init gpio 184 14 none]
-G r p none [demo standard 6 11 none] [get_s_i gpio__datos_sensores 175 16 none]
-G r p none [demo standard 6 11 none] [get_s_d gpio__datos_sensores 176 16 none]
-G r p none [demo standard 6 11 none] [get_infrarrojos gpio__datos_sensores 177 16 none]
-G r p none [demo standard 6 11 none] [get_distancia gpio__datos_sensores 174 16 none]
-G r c none [demo standard 6 11 none] [put uart 6 13 none]
+G r c none [demo standard 6 11 none] [init gpio 145 14 none]
+G r p none [demo standard 6 11 none] [get_s_i gpio__datos_sensores 133 16 none]
+G r p none [demo standard 6 11 none] [get_s_d gpio__datos_sensores 134 16 none]
+G r p none [demo standard 6 11 none] [get_infrarrojos gpio__datos_sensores 135 16 none]
+G r p none [demo standard 6 11 none] [get_distancia gpio__datos_sensores 132 16 none]
 G r c none [demo standard 6 11 none] [put_line uart 9 13 none]
-G r c none [demo standard 6 11 none] [enciendergb gpio 190 14 none]
+G r c none [demo standard 6 11 none] [put uart 6 13 none]
+G r c none [demo standard 6 11 none] [enciendergb gpio 153 14 none]
 X 1 ada.ads
-16K9*Ada 20e8 6|2r6 2r25 174r16
+16K9*Ada 20e8 6|2r6 2r25 179r16
 X 3 a-reatim.ads
-41K13*Real_Time 182e18 6|2w10 2r29 174r20
+41K13*Real_Time 182e18 6|2w10 2r29 179r20
 51M9*Time<18|46M9>
-53m4*Time_Last{51M9} 6|174r30
+53m4*Time_Last{51M9} 6|179r30
 X 6 demo.adb
-6U11*Demo 6b11 176l5 176t9
-8b4 izq{boolean} 58m7 73r37 92r19 111r21
-8b9 drcha{boolean} 60m7 74r40 92r26 111r28
-9f4 distancia{float} 69m7 78r47 97r19 97r41 102r19 117r16 123r16
-9f15 d_min{float} 42m4 97r31 117r29
-9f22 d_max{float} 43m4 102r31 123r29
-10i4 n_inf{integer} 65m7 75r46 88r16
-10i11 n_infL{integer} 46m4 88r25
+6U11*Demo 6b11 181l5 181t9
+8b4 izq{boolean} 56m7 97r19 116r21
+8b9 drcha{boolean} 58m7 97r26 116r28
+9f4 distancia{float} 67m7 80r23 102r19 102r41 107r19 122r16 128r16
+9f15 d_min{float} 43m4 102r31 122r29
+9f22 d_max{float} 44m4 107r31 128r29
+10i4 n_inf{integer} 63m7 93r16
+10i11 n_infL{integer} 48m4 93r25
 13E9 estado 13e92 14r14
-13n20 Inicio{13E9} 39r15 83r15
-13n28 Avanzar{13E9} 84r24 86r15 106r27 112r27 118r27 124r27 131r24 136r15
-13n37 Girar_Izq{13E9} 93r27 109r15 138r15
-13n48 Girar_Der{13E9} 138r27
-13n59 Corregir_Izq{13E9} 98r27 115r15 140r15
-13n73 Corregir_Der{13E9} 103r27 121r15 140r30
-13n87 Meta{13E9} 89r27 127r15 142r15
-14e4 eActual{13E9} 39m4 82r12 84m13 89m16 93m16 98m16 103m16 106m16 112m16
-. 118m16 124m16 131m13 135r12
+13n20 Inicio{13E9} 39r15 88r15
+13n28 Avanzar{13E9} 89r24 91r15 111r27 117r27 123r27 129r27 136r24 141r15
+13n37 Girar_Izq{13E9} 98r27 114r15 143r15
+13n48 Girar_Der{13E9} 143r27
+13n59 Corregir_Izq{13E9} 103r27 120r15 145r15
+13n73 Corregir_Der{13E9} 108r27 126r15 145r30
+13n87 Meta{13E9} 94r27 132r15 147r15
+14e4 eActual{13E9} 39m4 87r12 89m13 94m16 98m16 103m16 108m16 111m16 117m16
+. 123m16 129m16 136m13 140r12
 17U14 Check_SMP 17b14 27l8 27t17
 X 7 gpio.ads
-5K9*GPIO 6|3w6 3r16 58r15 60r16 7|201e9
-31n21*off{31E9} 6|139r31 145r25 145r30
-31n26*red{31E9} 6|143r25 143r30
-31n31*green{31E9} 6|137r25 137r32
-31n38*blue{31E9} 6|139r25
-31n44*violet{31E9} 6|141r25 141r33
-169w14*Datos_Sensores 6|58r20 60r21 65r16 69r20
-174V16 Get_Distancia{float} 6|69s35
-175V16 Get_S_I{boolean} 6|58s35
-176V16 Get_S_D{boolean} 6|60s36
-177V16 Get_Infrarrojos{integer} 6|65s31
-184U14*Init 6|37s4
-190U14*EnciendeRGB 6|137s13 139s13 141s13 143s13 145s13
+4K9*GPIO 6|3w6 3r16 56r15 58r16 7|169e9
+28n21*off{28E9} 6|144r31 150r25 150r30
+28n26*red{28E9} 6|148r25 148r30
+28n31*green{28E9} 6|142r25 142r32
+28n38*blue{28E9} 6|144r25
+28n44*violet{28E9} 6|146r25 146r33
+127w14*Datos_Sensores 6|56r20 58r21 63r16 67r20
+132V16 Get_Distancia{float} 6|67s35
+133V16 Get_S_I{boolean} 6|56s35
+134V16 Get_S_D{boolean} 6|58s36
+135V16 Get_Infrarrojos{integer} 6|63s31
+145U14*Init 6|37s4
+153U14*EnciendeRGB 6|142s13 144s13 146s13 148s13 150s13
 X 9 system.ads
 45K9*System 6|4r6 4r33 20r34 22r10 9|168e11
 X 18 s-bbtime.ads
 46M9*Time
-X 22 s-multip.ads
-18K16*Multiprocessors 6|4w13 4r40 20r41 22r17 22|31e27
+X 21 s-multip.ads
+18K16*Multiprocessors 6|4w13 4r40 20r41 22r17 21|31e27
 21I9*CPU_Range<short_short_integer> 6|20r18
 23I12*CPU{21I9}
 27V13*Number_Of_CPUs{23I12} 6|20s57 22s33
-X 28 s-secsta.ads
+X 27 s-secsta.ads
 46P9*SS_Stack_Ptr(43R9)
-X 33 s-taskin.ads
-407V13*Get_Sec_Stack{28|46P9} 408i<c,__gnat_get_secondary_stack>22
-X 36 s-tarest.ads
+X 32 s-taskin.ads
+407V13*Get_Sec_Stack{27|46P9} 408i<c,__gnat_get_secondary_stack>22
+X 35 s-tarest.ads
 232U14*Activate_All_Tasks_Sequential 233i<c,__gnat_activate_all_tasks>22
-X 39 uart.ads
-1K9*UART 6|1w6 1r16 39|12e9
+X 38 uart.ads
+1K9*UART 6|1w6 1r16 38|12e9
 3U13*InitUART 6|31s4
 3i22 nUart{integer} 6|31r13
-6U13*Put 6|73s7 74s7 75s7
-9U13*Put_Line 6|19s7 23s10 25s10 78s7
+6U13*Put 6|79s7 80s7
+9U13*Put_Line 6|19s7 23s10 25s10 70s7 81s7 83s7
 

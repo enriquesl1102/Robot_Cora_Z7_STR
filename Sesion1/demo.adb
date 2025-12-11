@@ -39,17 +39,15 @@ begin
    eActual := Inicio;
    
    -- Umbrales de distancia (ajustar según pruebas reales)
-   d_min := 10.0; 
-   d_max := 20.0;
+
+   d_min := 10.0; --d_min := ; --  Distancia minima del ultrasonidos hasta la pared
+   d_max := 20.0; --d_max := ;Distancia maxima del ultrasonidos hasta la pared
    
    -- Mínimo de sensores IR para considerar "Meta" (4 o 5)
-   n_infL := 4;
-   
 
-   --eActual := Inicio;
-   --d_min := ; --  Distancia m�nima del ultrasonidos hasta la pared
-   --d_max := ;Distancia m�xima del ultrasonidos hasta la pared
-   --n_infL := ; -- N�mero de infrarrojos inferiores m�nimos (en alto) para detectar meta
+   n_infL := 4;  --n_infL := ; -- Numero de infrarrojos inferiores m�nimos (en alto) para detectar meta
+
+   
 
    loop
       -- LECTURA DE SENSORES (a completar)
@@ -68,15 +66,22 @@ begin
       -- distancia := 
       distancia := Datos_Sensores.Get_Distancia;
       
-      -- IMPRIMIR LOS VALORES DE LOS SENSORES (a completar)
+      ---------------------------------------------------------
+      Put_Line(""); -- Línea en blanco para separar iteraciones
+      ---Put_Line("--- ESTADO: " & estado'Image(eActual) & " ---");
+
+      -- Imprimimos booleanos
+      ---Put(" IRF_I: " & Boolean'Image(izq));
+      --Put_Line(" | IRF_D: " & Boolean'Image(drcha));
+      --Put_Line(" IRI_Activos: " & Integer'Image(n_inf));
       
-      Put("IRF_I: " & Boolean'Image(izq));
-      Put(" | IRF_D: " & Boolean'Image(drcha));
-      Put(" | IRI_Activos: " & Integer'Image(n_inf));
-      -- Mostramos la distancia con 2 decimales aprox (Float'Image suele sacar notación científica, 
-      -- para simplificar aquí usamos la conversión estándar)
-      Put_Line(" | Distancia: " & Float'Image(distancia) & " cm");
+      -- Imprimimos distancia por partes para evitar errores de buffer
+      Put(" Distancia: ");
+      Put(Float'Image(distancia)); 
+      Put_Line(" cm");
       
+      Put_Line("----------------------------------");
+
       -- IMPLEMENTACI�N DE LA M�QUINA DE ESTADOS (a completar)
       
       case eActual is

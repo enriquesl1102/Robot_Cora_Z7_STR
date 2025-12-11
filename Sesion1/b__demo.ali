@@ -32,8 +32,8 @@ W system%s		system.ads		system.ali
 W system.parameters%s	s-parame.adb		s-parame.ali
 W system.secondary_stack%s  s-secsta.adb	s-secsta.ali
 
-D b__demo.ads		20251210185648 40dc882c ada_main%s
-D b__demo.adb		20251210185648 343004f9 ada_main%b
+D b__demo.ads		20251211144838 40dc882c ada_main%s
+D b__demo.adb		20251211144838 343004f9 ada_main%b
 D system.ads		20210507084300 da70b04d system%s
 D s-parame.ads		20210507084300 96993d70 system.parameters%s
 D s-secsta.ads		20210507084300 56a2861c system.secondary_stack%s
@@ -45,7 +45,7 @@ G c Z s b [main ada_main 22 14 none]
 G c Z b b [Tsec_default_sized_stacksBIP ada_main 20 4 none]
 G c Z b b [ada_main_program ada_main 138 14 none]
 X 1 b__demo.ads
-6K9*ada_main 161l5 161e13 2|7b14 172l5 172t13
+6K9*ada_main 159l5 159e13 2|7b14 172l5 172t13
 9a4*GNAT_Version{string} 11r22
 13a4*Ada_Main_Program_Name{string} 14r22 2|149r52
 16U14*adainit 17i<c,adainit>22 2|43b14 136l8 136t15 154s7

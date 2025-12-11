@@ -1,8 +1,10 @@
 with ada.Real_Time; use ada.Real_Time;
-with uart;use uart;
+with uart; use uart;
+with System.Storage_Elements;
 
 package body GPIO is
 
+   -- MAPEO DE DIRECCIONES
    BTN: GPIO_BTN;
    for BTN'address use system.storage_elements.To_address(16#41200000#);
 
@@ -15,102 +17,97 @@ package body GPIO is
    SWT: GPIO_SWT;
    for SWT'address use system.storage_elements.To_address(16#40001000#);
    
-   Ultra: GPIO_Ultra; 
+   Ultra: GPIO_Ultra;
    for Ultra'Address use System.Storage_Elements.To_Address(16#41220000#);
 
    Infra: GPIO_Infra; 
    for Infra'Address use System.Storage_Elements.To_Address(16#40001000#);
 
-
+   -- INICIALIZACIÓN
    procedure Init is
    begin
-      RGB.control:=0; --out
-      BTN.control:=1; --in
-      P8LD.control:=0; --out
-      SWT.control:=16#FF#; --todo in, infrarrojos obstaculos y siguelineas
-      Ultra.control := 16#0001#; --Trigger out (IO27), echo in (IO26) D = 1101. 
+      RGB.control:=0; 
+      BTN.control:=1;
+      P8LD.control:=0; 
+      SWT.control:=16#FF#;
+      -- Trigger (bit 1) output, Echo (bit 0) input. Control: 1=Input.
+      Ultra.control := 16#0001#; 
    end Init;
 
+   -----------------------------------------------------------------------
+   -- IMPLEMENTACIÓN PROCEDIMIENTOS ULTRASONIDOS
+   -----------------------------------------------------------------------
+   procedure enviaSenyalON is
+   begin
+      Ultra.datos.trigger := True;
+   end enviaSenyalON;
 
+   procedure enviaSenyalOFF is
+   begin
+      Ultra.datos.trigger := False;
+   end enviaSenyalOFF;
 
-   -- sensores funcionan con l�gica negada
+   function recibeSenyal return Boolean is
+   begin
+      return Ultra.datos.echo;
+   end recibeSenyal;
+
+   -----------------------------------------------------------------------
+   -- FUNCIONES DE LECTURA SENSORES
+   -----------------------------------------------------------------------
    function leer_sensor_derecha return Boolean is
    begin
-
-      if SWT.datos.switch1 = Off then
-         return True;
-      else
-         return False;
-      end if;
+      if SWT.datos.switch1 = Off then return True; else return False; end if;
    end leer_sensor_derecha;
 
    function leer_sensor_izquierda return Boolean is
    begin
-      if SWT.datos.switch2 = Off then
-         return True;
-      else
-         return False;
-      end if;
+      if SWT.datos.switch2 = Off then return True; else return False; end if;
    end leer_sensor_izquierda;
-   
-   
-   -- Completar 
-   -- sensores funcionan con l�gica negada
 
+   -- Infrarrojos Inferiores
    function leer_ir1 return Boolean is
    begin
       if Infra.datos.ir1 = Off then return True; else return False; end if;
    end leer_ir1;
-   
    function leer_ir2 return Boolean is
    begin
       if Infra.datos.ir2 = Off then return True; else return False; end if;
    end leer_ir2;
-
    function leer_ir3 return Boolean is
    begin
       if Infra.datos.ir3 = Off then return True; else return False; end if;
    end leer_ir3;
-
    function leer_ir4 return Boolean is
    begin
       if Infra.datos.ir4 = Off then return True; else return False; end if;
    end leer_ir4;
-
    function leer_ir5 return Boolean is
    begin
       if Infra.datos.ir5 = Off then return True; else return False; end if;
    end leer_ir5;
    
-   
+   -- Botones
    function ReadButton0 return Boolean is 
    begin 
-      if BTN.datos.btn0 = On then 
-         return True;
-      else
-         return False;
-      end if;
+      if BTN.datos.btn0 = On then return True; else return False; end if;
    end ReadButton0;
-   
    function ReadButton1 return Boolean is 
    begin 
-      if BTN.datos.btn1 = On then 
-         return True;
-      else
-         return False;
-      end if;
+      if BTN.datos.btn1 = On then return True; else return False; end if;
    end ReadButton1;
-   
+
+   -- LEDs RGB
    procedure EnciendeRGB (color0, color1: RGBtype) is
    begin
       RGB.datos.rgbColor0:=color0;
       RGB.datos.rgbColor1:=color1;
-
    end EnciendeRGB;
 
-   
+   -----------------------------------------------------------------------
+   -- OBJETO PROTEGIDO
+   -----------------------------------------------------------------------
    protected body Datos_Sensores is
-   
       procedure Set_Distancia (D : Float) is
       begin
          Distancia := D;
@@ -146,73 +143,73 @@ package body GPIO is
       begin
          return Infra;
       end Get_Infrarrojos;
-      
    end Datos_Sensores;
    
- 
-
+   -----------------------------------------------------------------------
+   -- TAREA SENSORIZACIÓN
+   -----------------------------------------------------------------------
    task body Sensorizacion is
-      period_U: constant Ada.Real_Time.Time_Span := Ada.Real_Time.Milliseconds(300); -- ultrasonidos
-      t_ini, t_fin, t_echo_start, t_echo_end, inicio:  Ada.Real_Time.Time := Ada.Real_Time.Clock;
+      period_U: constant Ada.Real_Time.Time_Span := Ada.Real_Time.Milliseconds(60); 
+      t_ini, t_fin, t_echo_start, t_echo_end, inicio_timeout: Ada.Real_Time.Time;
       duracion: Duration;
       dist_calc: float;
-      S_I,S_D, S_IR1, S_IR2, S_IR3, S_IR4, S_IR5 : Boolean; 
+      
+      S_I, S_D : Boolean; 
+      S_IR1, S_IR2, S_IR3, S_IR4, S_IR5 : Boolean;
       n_active: Integer;
-
    begin
+      t_fin := Clock; 
 
       bucle_ext: loop
-             
-         -- Ultrasonidos (a completar - Sesi�n 2
+         ----------------------------------------------------------
+         -- 1. SECUENCIA ULTRASONIDOS (Modularizada)
+         ----------------------------------------------------------
+         enviaSenyalOFF;
+         delay 0.000_012; 
          
-         t_fin:=Clock;
-
-         Ultra.datos.trigger := True;
-         -- Retardo pequeño (mínimo 10us, aquí usamos un delay relativo pequeño o bucle)
-         delay 0.000_015; 
-         Ultra.datos.trigger := False;
+         enviaSenyalON;
+         delay 0.000_010;
          
-         -- Esperar inicio del Echo (Flanco de subida) con Timeout
-         t_ini := Clock;
-         while Ultra.datos.echo = False loop
-            if (Clock - t_ini) > Ada.Real_Time.Milliseconds(30) then
-               exit; -- Timeout si no responde
+         enviaSenyalOFF;
+         
+         -- Esperar flanco de subida
+         inicio_timeout := Clock;
+         while recibeSenyal = False loop
+            if (Clock - inicio_timeout) > Ada.Real_Time.Milliseconds(30) then
+               goto Saltarse_Calculo; 
             end if;
          end loop;
+         
          t_echo_start := Clock;
          
-         -- Esperar fin del Echo (Flanco de bajada)
-         while Ultra.datos.echo = True loop
+         -- Esperar flanco de bajada
+         while recibeSenyal = True loop
              if (Clock - t_echo_start) > Ada.Real_Time.Milliseconds(30) then
-               exit; -- Timeout (distancia máxima excedida)
+               goto Saltarse_Calculo;
             end if;
          end loop;
+         
          t_echo_end := Clock;
          
-         -- Calcular distancia: (Tiempo * Velocidad Sonido) / 2
-         -- Velocidad sonido ~340 m/s = 34000 cm/s
          duracion := To_Duration(t_echo_end - t_echo_start);
          dist_calc := Float(duracion) * 34000.0 / 2.0;
-         
-         -- Guardar en objeto protegido
          Datos_Sensores.Set_Distancia(dist_calc);
 
-
-
-         -------------
-         --Infrarrojos frontales IRF
+         <<Saltarse_Calculo>>
+         
+         ----------------------------------------------------------
+         -- 2. RESTO DE SENSORES (IRF e IRI)
+         ----------------------------------------------------------
          S_I := leer_sensor_izquierda;
          S_D := leer_sensor_derecha;
-         Datos_Sensores.Set_Frontales(S_I,S_D);
+         Datos_Sensores.Set_Frontales(S_I, S_D);
          
-         --Infrarrojos inferiores IRI (a completar)
          S_IR1 := leer_ir1;
          S_IR2 := leer_ir2;
          S_IR3 := leer_ir3;
          S_IR4 := leer_ir4;
          S_IR5 := leer_ir5;
          
-         -- Contar cuántos están activos
          n_active := 0;
          if S_IR1 then n_active := n_active + 1; end if;
          if S_IR2 then n_active := n_active + 1; end if;
@@ -220,15 +217,12 @@ package body GPIO is
          if S_IR4 then n_active := n_active + 1; end if;
          if S_IR5 then n_active := n_active + 1; end if;
          
-         -- Guardar en objeto protegido
          Datos_Sensores.Set_Infrarrojos(n_active);
 
-
-         delay until t_fin + period_U;
-
+         t_fin := t_fin + period_U;
+         delay until t_fin;
+         
       end loop bucle_ext;
    end Sensorizacion;
 
-
-   
 end GPIO;

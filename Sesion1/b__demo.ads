@@ -34,8 +34,6 @@ package ada_main is
    --  system.exceptions%b
    --  system.float_control%s
    --  system.float_control%b
-   --  system.img_bool%s
-   --  system.img_bool%b
    --  system.img_int%s
    --  system.img_int%b
    --  system.machine_code%s
