@@ -6,18 +6,19 @@ pragma Suppress (Overflow_Check);
 
 package body ada_main is
 
+   E106 : Short_Integer; pragma Import (Ada, E106, "ada__text_io_E");
    E084 : Short_Integer; pragma Import (Ada, E084, "ada__tags_E");
    E017 : Short_Integer; pragma Import (Ada, E017, "ada__exceptions_E");
    E042 : Short_Integer; pragma Import (Ada, E042, "system__soft_links_E");
    E099 : Short_Integer; pragma Import (Ada, E099, "system__bb__timing_events_E");
    E040 : Short_Integer; pragma Import (Ada, E040, "system__exception_table_E");
    E006 : Short_Integer; pragma Import (Ada, E006, "ada__real_time_E");
-   E110 : Short_Integer; pragma Import (Ada, E110, "system__tasking__protected_objects_E");
-   E116 : Short_Integer; pragma Import (Ada, E116, "system__tasking__restricted__stages_E");
-   E119 : Short_Integer; pragma Import (Ada, E119, "uart_E");
-   E106 : Short_Integer; pragma Import (Ada, E106, "gpio_E");
+   E112 : Short_Integer; pragma Import (Ada, E112, "system__tasking__protected_objects_E");
+   E118 : Short_Integer; pragma Import (Ada, E118, "system__tasking__restricted__stages_E");
+   E121 : Short_Integer; pragma Import (Ada, E121, "uart_E");
+   E108 : Short_Integer; pragma Import (Ada, E108, "gpio_E");
 
-   Sec_Default_Sized_Stacks : array (1 .. 2) of aliased System.Secondary_Stack.SS_Stack (System.Parameters.Runtime_Default_Sec_Stack_Size);
+   Sec_Default_Sized_Stacks : array (1 .. 4) of aliased System.Secondary_Stack.SS_Stack (System.Parameters.Runtime_Default_Sec_Stack_Size);
 
    Local_Priority_Specific_Dispatching : constant String := "";
    Local_Interrupt_States : constant String := "";
@@ -106,11 +107,13 @@ package body ada_main is
 
       ada_main'Elab_Body;
       Default_Secondary_Stack_Size := System.Parameters.Runtime_Default_Sec_Stack_Size;
-      Binder_Sec_Stacks_Count := 2;
+      Binder_Sec_Stacks_Count := 4;
       Default_Sized_SS_Pool := Sec_Default_Sized_Stacks'Address;
 
       Runtime_Initialize (1);
 
+      Ada.Text_Io'Elab_Body;
+      E106 := E106 + 1;
       Ada.Exceptions'Elab_Spec;
       System.Soft_Links'Elab_Spec;
       System.Bb.Timing_Events'Elab_Spec;
@@ -124,14 +127,14 @@ package body ada_main is
       Ada.Real_Time'Elab_Body;
       E006 := E006 + 1;
       System.Tasking.Protected_Objects'Elab_Body;
-      E110 := E110 + 1;
+      E112 := E112 + 1;
       System.Tasking.Restricted.Stages'Elab_Body;
-      E116 := E116 + 1;
+      E118 := E118 + 1;
       UART'ELAB_BODY;
-      E119 := E119 + 1;
+      E121 := E121 + 1;
       GPIO'ELAB_SPEC;
       GPIO'ELAB_BODY;
-      E106 := E106 + 1;
+      E108 := E108 + 1;
       Start_Slave_CPUs;
    end adainit;
 

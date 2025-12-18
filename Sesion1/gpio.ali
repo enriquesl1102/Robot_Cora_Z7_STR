@@ -18,16 +18,19 @@ RV NO_PROTECTED_TYPES
 RV NO_RELATIVE_DELAY
 RV NO_STANDARD_STORAGE_POOLS
 RV NO_TASKING
+RV NO_UNCHECKED_CONVERSION
 RV NO_DEFAULT_INITIALIZATION
 RV NO_IMPLEMENTATION_PRAGMAS
 RV NO_ELABORATION_CODE
-RV MAX_TASKS=1
+RV MAX_TASKS=3
 RV MAX_ENTRY_QUEUE_LENGTH=1+
 
-U gpio%b		gpio.adb		077d4530 OO PK IU
+U gpio%b		gpio.adb		9bdd9a94 OO PK IU
 W ada%s			ada.ads			ada.ali
 W ada.real_time%s	a-reatim.adb		a-reatim.ali
 Z ada.real_time.delays%s  a-retide.adb		a-retide.ali
+W ada.unchecked_conversion%s
+W interfaces%s		interfac.ads		interfac.ali
 W system%s		system.ads		system.ali
 Z system.relative_delays%s  s-reldel.adb	s-reldel.ali
 W system.storage_elements%s  s-stoele.adb	s-stoele.ali
@@ -35,7 +38,9 @@ Z system.tasking.protected_objects%s  s-taprob.adb  s-taprob.ali
 Z system.tasking.restricted.stages%s  s-tarest.adb  s-tarest.ali
 W uart%s		uart.adb		uart.ali
 
-U gpio%s		gpio.ads		edd89bae EE OO PF PK IU
+U gpio%s		gpio.ads		3c25294e EE OO PF PK IU
+W ada%s			ada.ads			ada.ali
+W ada.real_time%s	a-reatim.adb		a-reatim.ali
 W system%s		system.ads		system.ali
 W system.multiprocessors%s  s-multip.adb	s-multip.ali
 Z system.parameters%s	s-parame.adb		s-parame.ali
@@ -45,15 +50,15 @@ Z system.tasking%s	s-taskin.adb		s-taskin.ali
 Z system.tasking.protected_objects%s  s-taprob.adb  s-taprob.ali
 Z system.tasking.restricted.stages%s  s-tarest.adb  s-tarest.ali
 Z system.unsigned_types%s  s-unstyp.ads		s-unstyp.ali
-T 1 1
+T 3 3
 
 D ada.ads		20210507084300 76789da1 ada%s
 D a-except.ads		20210507084300 a7106115 ada.exceptions%s
 D a-reatim.ads		20210507084300 4c16970e ada.real_time%s
 D a-retide.ads		20210507084300 081cdaa4 ada.real_time.delays%s
 D a-unccon.ads		20210507084300 0e9b276f ada.unchecked_conversion%s
-D gpio.ads		20251211144036 3325df9f gpio%s
-D gpio.adb		20251211143634 d5190d89 gpio%b
+D gpio.ads		20251218152814 aecefa71 gpio%s
+D gpio.adb		20251218153724 807c82c4 gpio%b
 D interfac.ads		20210507084300 5ab55268 interfaces%s
 D system.ads		20210507084300 da70b04d system%s
 D s-bb.ads		20210507084300 09e072ae system.bb%s
@@ -84,188 +89,299 @@ D s-traent.ads		20210507084300 005bf670 system.traceback_entries%s
 D s-unstyp.ads		20210507084300 5ecf7212 system.unsigned_types%s
 D uart.ads		20250130102942 80944a2c uart%s
 G a e
-G c Z s b [set_distancia gpio__datos_sensores 128 17 none]
-G c Z s b [set_frontales gpio__datos_sensores 129 17 none]
-G c Z s b [set_infrarrojos gpio__datos_sensores 130 17 none]
-G c Z s b [get_distancia gpio__datos_sensores 132 16 none]
-G c Z s b [get_s_i gpio__datos_sensores 133 16 none]
-G c Z s b [get_s_d gpio__datos_sensores 134 16 none]
-G c Z s b [get_infrarrojos gpio__datos_sensores 135 16 none]
-G c Z s b [datos_sensores__set_distanciaN gpio 128 7 none]
-G c Z s b [datos_sensores__set_distanciaP gpio 128 7 none]
-G c Z s b [datos_sensores__set_frontalesN gpio 129 7 none]
-G c Z s b [datos_sensores__set_frontalesP gpio 129 7 none]
-G c Z s b [datos_sensores__set_infrarrojosN gpio 130 7 none]
-G c Z s b [datos_sensores__set_infrarrojosP gpio 130 7 none]
-G c Z s b [datos_sensores__get_distanciaN gpio 132 7 none]
-G c Z s b [datos_sensores__get_distanciaP gpio 132 7 none]
-G c Z s b [datos_sensores__get_s_iN gpio 133 7 none]
-G c Z s b [datos_sensores__get_s_iP gpio 133 7 none]
-G c Z s b [datos_sensores__get_s_dN gpio 134 7 none]
-G c Z s b [datos_sensores__get_s_dP gpio 134 7 none]
-G c Z s b [datos_sensores__get_infrarrojosN gpio 135 7 none]
-G c Z s b [datos_sensores__get_infrarrojosP gpio 135 7 none]
-G c Z s s [datos_sensoresTVIP gpio 127 4 none]
-G c Z s b [init gpio 145 14 none]
-G c Z s b [leer_sensor_izquierda gpio 147 13 none]
-G c Z s b [leer_sensor_derecha gpio 148 13 none]
-G c Z s b [readbutton0 gpio 150 13 none]
-G c Z s b [readbutton1 gpio 151 13 none]
-G c Z s b [enciendergb gpio 153 14 none]
-G c Z s b [leer_ir1 gpio 156 13 none]
-G c Z s b [leer_ir2 gpio 157 13 none]
-G c Z s b [leer_ir3 gpio 158 13 none]
-G c Z s b [leer_ir4 gpio 159 13 none]
-G c Z s b [leer_ir5 gpio 160 13 none]
-G c Z s b [enviasenyalon gpio 163 14 none]
-G c Z s b [enviasenyaloff gpio 164 14 none]
-G c Z s b [recibesenyal gpio 165 13 none]
-G c Z s b [sensorizacionTK gpio 167 9 none]
-G c Z s s [sensorizacionTKVIP gpio 167 4 none]
-G c Z s s [ctrl_btnIP gpio 13 9 none]
-G c Z s s [gpio_btnIP gpio 22 9 none]
-G c Z s s [ctrl_rgbIP gpio 32 9 none]
-G c Z s s [gpio_rgbIP gpio 41 9 none]
-G c Z s s [ctrl_motorIP gpio 51 9 none]
-G c Z s s [gpio_8ldIP gpio 64 9 none]
-G c Z s s [ctrl_switchIP gpio 70 9 none]
-G c Z s s [gpio_swtIP gpio 79 9 none]
-G c Z s s [ctrl_infraIP gpio 85 9 none]
-G c Z s s [gpio_infraIP gpio 100 9 none]
-G c Z s s [ctrl_ultraIP gpio 106 9 none]
-G c Z s s [gpio_ultraIP gpio 116 9 none]
+G c Z s b [set_distancia gpio__datos_sensores 159 17 none]
+G c Z s b [set_frontales gpio__datos_sensores 160 17 none]
+G c Z s b [set_infrarrojos gpio__datos_sensores 161 17 none]
+G c Z s b [get_distancia gpio__datos_sensores 162 16 none]
+G c Z s b [get_s_i gpio__datos_sensores 163 16 none]
+G c Z s b [get_s_d gpio__datos_sensores 164 16 none]
+G c Z s b [get_infrarrojos gpio__datos_sensores 165 16 none]
+G c Z s b [datos_sensores__set_distanciaN gpio 159 7 none]
+G c Z s b [datos_sensores__set_distanciaP gpio 159 7 none]
+G c Z s b [datos_sensores__set_frontalesN gpio 160 7 none]
+G c Z s b [datos_sensores__set_frontalesP gpio 160 7 none]
+G c Z s b [datos_sensores__set_infrarrojosN gpio 161 7 none]
+G c Z s b [datos_sensores__set_infrarrojosP gpio 161 7 none]
+G c Z s b [datos_sensores__get_distanciaN gpio 162 7 none]
+G c Z s b [datos_sensores__get_distanciaP gpio 162 7 none]
+G c Z s b [datos_sensores__get_s_iN gpio 163 7 none]
+G c Z s b [datos_sensores__get_s_iP gpio 163 7 none]
+G c Z s b [datos_sensores__get_s_dN gpio 164 7 none]
+G c Z s b [datos_sensores__get_s_dP gpio 164 7 none]
+G c Z s b [datos_sensores__get_infrarrojosN gpio 165 7 none]
+G c Z s b [datos_sensores__get_infrarrojosP gpio 165 7 none]
+G c Z s s [datos_sensoresTVIP gpio 158 4 none]
+G c Z s b [set_seg1 gpio__datos_7seg 173 17 none]
+G c Z s b [set_seg2 gpio__datos_7seg 174 17 none]
+G c Z s b [get_seg1 gpio__datos_7seg 175 16 none]
+G c Z s b [get_seg2 gpio__datos_7seg 176 16 none]
+G c Z s b [datos_7seg__set_seg1N gpio 173 7 none]
+G c Z s b [datos_7seg__set_seg1P gpio 173 7 none]
+G c Z s b [datos_7seg__set_seg2N gpio 174 7 none]
+G c Z s b [datos_7seg__set_seg2P gpio 174 7 none]
+G c Z s b [datos_7seg__get_seg1N gpio 175 7 none]
+G c Z s b [datos_7seg__get_seg1P gpio 175 7 none]
+G c Z s b [datos_7seg__get_seg2N gpio 176 7 none]
+G c Z s b [datos_7seg__get_seg2P gpio 176 7 none]
+G c Z s s [datos_7segTVIP gpio 172 4 none]
+G c Z s b [set_en gpio__contador_ctrl 182 17 none]
+G c Z s b [get_en gpio__contador_ctrl 183 16 none]
+G c Z s b [contador_ctrl__set_enN gpio 182 7 none]
+G c Z s b [contador_ctrl__set_enP gpio 182 7 none]
+G c Z s b [contador_ctrl__get_enN gpio 183 7 none]
+G c Z s b [contador_ctrl__get_enP gpio 183 7 none]
+G c Z s s [contador_ctrlTVIP gpio 181 4 none]
+G c Z s b [init gpio 191 14 none]
+G c Z s b [leer_sensor_izquierda gpio 194 13 none]
+G c Z s b [leer_sensor_derecha gpio 195 13 none]
+G c Z s b [readbutton0 gpio 196 13 none]
+G c Z s b [readbutton1 gpio 197 13 none]
+G c Z s b [leer_ir1 gpio 198 13 none]
+G c Z s b [leer_ir2 gpio 199 13 none]
+G c Z s b [leer_ir3 gpio 200 13 none]
+G c Z s b [leer_ir4 gpio 201 13 none]
+G c Z s b [leer_ir5 gpio 202 13 none]
+G c Z s b [enviasenyalon gpio 205 14 none]
+G c Z s b [enviasenyaloff gpio 206 14 none]
+G c Z s b [recibesenyal gpio 207 13 none]
+G c Z s b [enciendergb gpio 208 14 none]
+G c Z s b [avanza gpio 211 14 none]
+G c Z s b [para gpio 212 14 none]
+G c Z s b [girar_izq gpio 213 14 none]
+G c Z s b [girar_der gpio 214 14 none]
+G c Z s b [corregir_izq gpio 215 14 none]
+G c Z s b [corregir_der gpio 216 14 none]
+G c Z s b [sensorizacionTK gpio 219 9 none]
+G c Z s s [sensorizacionTKVIP gpio 219 4 none]
+G c Z s b [pwmTK gpio 220 9 none]
+G c Z s s [pwmTKVIP gpio 220 4 none]
+G c Z s b [cuentaTK gpio 221 9 none]
+G c Z s s [cuentaTKVIP gpio 221 4 none]
+G c Z s s [ctrl_btnIP gpio 30 9 none]
+G c Z s s [gpio_btnIP gpio 39 9 none]
+G c Z s s [ctrl_rgbIP gpio 45 9 none]
+G c Z s s [gpio_rgbIP gpio 54 9 none]
+G c Z s s [ctrl_motorIP gpio 60 9 none]
+G c Z s s [gpio_8ldIP gpio 73 9 none]
+G c Z s s [ctrl_switchIP gpio 79 9 none]
+G c Z s s [gpio_swtIP gpio 88 9 none]
+G c Z s s [ctrl_infraIP gpio 94 9 none]
+G c Z s s [gpio_infraIP gpio 109 9 none]
+G c Z s s [ctrl_ultraIP gpio 115 9 none]
+G c Z s s [gpio_ultraIP gpio 124 9 none]
+G c Z s s [gpio_dispIP gpio 132 9 none]
+G c Z b b [escribir_display_raw gpio 188 14 none]
+G c Z b b [intto7seg gpio 213 13 none]
+G c Z b b [to_u32 gpio 259 13 none]
+G c Z b b [to_int gpio 260 13 none]
 X 1 ada.ads
-16K9*Ada 20e8 7|1r6 1r25 152r26 152r53 153r63 178r43 187r42
+16K9*Ada 20e8 6|3r6 3r25 7|1r6 1r25 5r6 259r27 260r27 340r26 340r53 341r63
+. 360r43 366r42
 X 3 a-reatim.ads
-41K13*Real_Time 182e18 7|1w10 1r29 152r30 152r57 153r67 178r47 187r46
-51M9*Time<18|46M9> 7|153r77
-61I9*Time_Span<18|81I9> 7|152r40
-68V13*Clock{51M9}<18|134p13> 7|161s16 176s28 178s17 183s26 187s18 192s24
-72V14*"+"{51M9} 7|222s25
-76V14*"-"{61I9} 7|178s23 187s24 194s45
-114V14*">"{boolean} 7|178r41 187r40
-119V13*To_Duration{duration} 7|194s22
-128V13*Milliseconds{61I9} 7|152s67 178s57 187s56
+41K13*Real_Time 182e18 6|3w10 3r29 7|1w10 1r29 340r30 340r57 341r67 360r47
+. 366r46
+51M9*Time<18|46M9> 7|237r19 266r30 341r77
+61I9*Time_Span<18|81I9> 7|235r26 236r26 340r40
+68V13*Clock{51M9}<18|134p13> 7|239s20 280s17 292s17 294s27 321s22 331s26
+. 349s16 358s28 360s17 364s26 366s18 370s24
+72V14*"+"{51M9} 7|245s32 251s33 292s32 321s28 331s32 393s25
+76V14*"-"{61I9} 7|360s23 366s24 371s45
+87V14*">"{boolean} 7|292r23
+114V14*">"{boolean} 7|360r41 366r40
+119V13*To_Duration{duration} 7|371s22
+126V13*Microseconds{61I9} 7|235s39 236s39
+128V13*Milliseconds{61I9} 7|321s30 331s34 340s67 360s57 366s56
+131V13*Seconds{61I9} 7|292s34
+X 5 a-unccon.ads
+17+9 Source 7|259r52 260r52
+18+9 Target 7|259r71 260r75
+20v14*Unchecked_Conversion 7|5w10 259r31 260r31
 X 6 gpio.ads
-4K9*GPIO 169l5 169e9 7|5b14 228l5 228t9
-7b4*MI{boolean}
-7b8*MD{boolean}
-9E9*ButtonState 9e33 10r8 11r8 14r14 15r14 71r17 72r17 86r13 87r13 88r13
-. 89r13 90r13
-9n25*Off{9E9} 10r25 7|60r30 65r30 71r28 75r28 79r28 83r28 87r28
-9n30*On{9E9} 10r38 7|93r27 97r27
-13R9*Ctrl_BTN 16e14 17r8 23r15
-14e7*btn0{9E9} 18r7 7|93r20
-15e7*btn1{9E9} 19r7 7|97r20
-22R9*GPIO_BTN 25e14 7|8r9
-23r7*datos{13R9} 7|93r14 97r14
-24i7*control{integer} 7|30m11
-28E9*RGBtype 28e51 29r8 30r8 33r17 34r17 153r43 7|101r43
-28n21*off{28E9} 29r21
-28n26*red{28E9} 29r34
-28n31*green{28E9} 29r47
-28n38*blue{28E9} 29r62
-28n44*violet{28E9} 29r76
-32R9*Ctrl_RGB 35e14 36r8 42r13
-33e7*rgbColor0{28E9} 37r7 7|103m17
-34e7*rgbColor1{28E9} 38r7 7|104m17
-41R9*GPIO_RGB 44e14 7|11r9
-42r7*datos{32R9} 7|103m11 104m11
-43i7*control{integer} 7|29m11
-47E9*sentido 47e45 48r8 49r8 53r16 55r16
-47n21*parado{47E9} 48r21
-47n29*atras{47E9} 48r36
-47n36*adelante{47E9} 48r50
-51R9*Ctrl_Motor 56e14 57r8 65r13
-52b7*pwmI{boolean} 58r7
-53e7*sentidoI{47E9} 59r7
-54b7*pwmD{boolean} 60r7
-55e7*sentidoD{47E9} 61r7
-64R9*GPIO_8LD 67e14 7|14r10
-65r7*datos{51R9}
-66i7*control{integer} 7|31m12
-70R9*Ctrl_Switch 73e14 74r8 80r15
-71e7*switch1{9E9} 75r7 7|60r20
-72e7*switch2{9E9} 76r7 7|65r20
-79R9*GPIO_SWT 82e14 7|17r9
-80r7*datos{70R9} 7|60r14 65r14
-81i7*control{integer} 7|32m11
-85R9*Ctrl_Infra 91e14 92r8 101r15
-86e7*ir1{9E9} 93r7 7|71r22
-87e7*ir2{9E9} 94r7 7|75r22
-88e7*ir3{9E9} 95r7 7|79r22
-89e7*ir4{9E9} 96r7 7|83r22
-90e7*ir5{9E9} 97r7 7|87r22
-100R9*GPIO_Infra 103e14 7|23r11
-101r7*datos{85R9} 7|71r16 75r16 79r16 83r16 87r16
-102i7*control{integer}
-106R9*Ctrl_Ultra 109e14 111r8 117r15
-107b7*trigger{boolean} 112r7 7|42m19 47m19
-108b7*echo{boolean} 113r7 7|52r26
-116R9*GPIO_Ultra 119e14 7|20r11
-117r7*datos{106R9} 7|42m13 47m13 52r20
-118i7*control{integer} 7|34m13
-127w14*Datos_Sensores 7|110b19 146l8 146t22 196r10 205r10 220r10
-128U17 Set_Distancia 128>32 7|111b17 114l11 114t24 196s25
-128f32 D{float} 7|111b32 113r23
-129U17 Set_Frontales 129>32 129>36 7|116b17 120l11 120t24 205s25
-129b32 B1{boolean} 7|116b32 118r17
-129b36 B2{boolean} 7|116b36 119r17
-130U17 Set_Infrarrojos 130>34 7|122b17 125l11 125t26 220s25
-130i34 I{integer} 7|122b34 124r19
-132V16 Get_Distancia{float} 7|127b16 130l11 130t24
-133V16 Get_S_I{boolean} 7|132b16 135l11 135t18
-134V16 Get_S_D{boolean} 7|137b16 140l11 140t18
-135V16 Get_Infrarrojos{integer} 7|142b16 145l11 145t26
-137f7 Distancia{float} 7|113r10 129r17
-138b7 S_I{boolean} 7|118r10 134r17
-138b12 S_D{boolean} 7|119r10 139r17
-139i7 Infra{integer} 7|124r10 144r17
-145U14*Init 7|27b14 35l8 35t12
-147V13*leer_sensor_izquierda{boolean} 7|63b13 66l8 66t29 203s17
-148V13*leer_sensor_derecha{boolean} 7|58b13 61l8 61t27 204s17
-150V13*ReadButton0{boolean} 7|91b13 94l8 94t19
-151V13*ReadButton1{boolean} 7|95b13 98l8 98t19
-153U14*EnciendeRGB 153>27 153>35 7|101b14 105l8 105t19
-153e27 color0{28E9} 7|101b27 103r28
-153e35 color1{28E9} 7|101b35 104r28
-156V13*leer_ir1{boolean} 7|69b13 72l8 72t16 207s19
-157V13*leer_ir2{boolean} 7|73b13 76l8 76t16 208s19
-158V13*leer_ir3{boolean} 7|77b13 80l8 80t16 209s19
-159V13*leer_ir4{boolean} 7|81b13 84l8 84t16 210s19
-160V13*leer_ir5{boolean} 7|85b13 88l8 88t16 211s19
-163U14*enviaSenyalON 7|40b14 43l8 43t21 170s10
-164U14*enviaSenyalOFF 7|45b14 48l8 48t22 167s10 173s10
-165V13*recibeSenyal{boolean} 7|50b13 53l8 53t20 177s16 186s16
-167t9*Sensorizacion 7|151b14 226l8 226t21
+5K9*GPIO 223l5 223e9 7|7b14 398l5 398t9
+8b4*MI{boolean} 7|109m7 115m7 126m7 134m7 144m8 152m8 242r13
+8b8*MD{boolean} 7|110m7 116m7 127m7 135m7 145m8 153m8 243r13
+11E9*ButtonState 11e33 12r8 13r8 31r14 32r14 80r17 81r17 95r13 96r13 97r13
+. 98r13 99r13
+11n25*Off{11E9} 12r25 7|79r30 84r30 87r67 88r67 89r67 90r67 91r67
+11n30*On{11E9} 12r38 7|93r69 94r69
+16E9*RGBtype 16e51 17r8 18r8 46r17 47r17 208r43 7|96r43
+16n21*off{16E9} 17r21
+16n26*red{16E9} 17r34
+16n31*green{16E9} 17r47
+16n38*blue{16E9} 17r62
+16n44*violet{16E9} 17r76
+21E9*sentido 21e45 22r8 23r8 62r16 64r16
+21n21*parado{21E9} 22r21 7|117r30 118r30 142r31 151r31
+21n29*atras{21E9} 22r36 7|124r30 133r30
+21n36*adelante{21E9} 22r50 7|107r30 108r30 125r30 132r30 143r31 150r31
+30R9*Ctrl_BTN 33e14 34r8 40r15
+31e7*btn0{11E9} 35r7 7|93r62
+32e7*btn1{11E9} 36r7 7|94r62
+39R9*GPIO_BTN 42e14 7|10r9
+40r7*datos{30R9} 7|93r56 94r56
+41i7*control{integer} 7|50m11
+45R9*Ctrl_RGB 48e14 49r8 55r13
+46e7*rgbColor0{16E9} 50r7 7|98m17
+47e7*rgbColor1{16E9} 51r7 7|99m17
+54R9*GPIO_RGB 57e14 7|13r9
+55r7*datos{45R9} 7|98m11 99m11
+56i7*control{integer} 7|49m11
+60R9*Ctrl_Motor 65e14 66r8 74r13
+61b7*pwmI{boolean} 67r7 7|242m32 248m21
+62e7*sentidoI{21E9} 68r7 7|107m18 117m18 124m18 132m18 142m19 150m19
+63b7*pwmD{boolean} 69r7 7|243m32 249m21
+64e7*sentidoD{21E9} 70r7 7|108m18 118m18 125m18 133m18 143m19 151m19
+73R9*GPIO_8LD 76e14 7|16r10
+74r7*datos{60R9} 7|107m12 108m12 117m12 118m12 124m12 125m12 132m12 133m12
+. 142m13 143m13 150m13 151m13 242m26 243m26 248m15 249m15
+75i7*control{integer} 7|51m12
+79R9*Ctrl_Switch 82e14 83r8 89r15
+80e7*switch1{11E9} 84r7 7|79r20
+81e7*switch2{11E9} 85r7 7|84r20
+88R9*GPIO_SWT 91e14 7|19r9
+89r7*datos{79R9} 7|79r14 84r14
+90i7*control{integer} 7|52m11
+94R9*Ctrl_Infra 100e14 101r8 110r15
+95e7*ir1{11E9} 102r7 7|87r61
+96e7*ir2{11E9} 103r7 7|88r61
+97e7*ir3{11E9} 104r7 7|89r61
+98e7*ir4{11E9} 105r7 7|90r61
+99e7*ir5{11E9} 106r7 7|91r61
+109R9*GPIO_Infra 112e14 7|25r11
+110r7*datos{94R9} 7|87r55 88r55 89r55 90r55 91r55
+111i7*control{integer}
+115R9*Ctrl_Ultra 118e14 119r8 125r15
+116b7*trigger{boolean} 120r7 7|64m19 69m19
+117b7*echo{boolean} 121r7 7|74r26
+124R9*GPIO_Ultra 127e14 7|22r11
+125r7*datos{115R9} 7|64m13 69m13 74r20
+126i7*control{integer} 7|56m13
+132R9*GPIO_Disp 135e14 136r8 7|42r13
+133i8*Reg{integer} 137r8 7|209m15 313r50 319m18 324r50 329m18
+134i8*Control{integer} 138r8
+143i4*D0{integer} 7|216r27
+144i4*D1{integer} 7|217r27
+145i4*D2{integer} 7|218r27
+146i4*D3{integer} 7|219r27
+147i4*D4{integer} 7|220r27
+148i4*D5{integer} 7|221r27
+149i4*D6{integer} 7|222r27
+150i4*D7{integer} 7|223r27
+151i4*D8{integer} 7|224r27
+152i4*D9{integer} 7|225r27
+153i4*DAA{integer} 7|226r32
+158w14*Datos_Sensores 7|159b19 167l8 167t22 373r10 380r10 391r10
+159U17 Set_Distancia 159>32 7|160b17 160l72 160t85 373s25
+159f32 D{float} 7|160b32 160r65
+160U17 Set_Frontales 160>32 160>36 7|161b17 161l85 161t98 380s25
+160b32 B1{boolean} 7|161b32 161r66
+160b36 B2{boolean} 7|161b36 161r77
+161U17 Set_Infrarrojos 161>34 7|162b17 162l72 162t87 391s25
+161i34 I{integer} 7|162b34 162r65
+162V16 Get_Distancia{float} 7|163b16 163l74 163t87
+163V16 Get_S_I{boolean} 7|164b16 164l64 164t71
+164V16 Get_S_D{boolean} 7|165b16 165l64 165t71
+165V16 Get_Infrarrojos{integer} 7|166b16 166l74 166t89
+167f7 Distancia{float} 7|160r52 163r59
+168b7 S_I{boolean} 7|161r59 164r55
+168b12 S_D{boolean} 7|161r70 165r55
+169i7 Infra{integer} 7|162r56 166r63
+172w14*Datos_7SEG 7|172b19 177l8 177t18 306r10 307r10
+173U17 Set_Seg1 173>27 7|173b17 173l65 173t73 306s21
+173i27 DL{integer} 7|173b27 173r57
+174U17 Set_Seg2 174>27 7|174b17 174l65 174t73 307s21
+174i27 UN{integer} 7|174b27 174r57
+175V16 Get_Seg1{integer} 7|175b16 175l66 175t74
+176V16 Get_Seg2{integer} 7|176b16 176l66 176t74
+178i7 Seg1{integer} 7|173r49 175r56
+178i13 Seg2{integer} 7|174r49 176r56
+181w14*Contador_ctrl 7|179b19 182l8 182t21 288r22
+182U17 Set_EN 182>25 7|180b17 180l59 180t65
+182i25 x{integer} 7|180b25 180r52
+183V16 Get_EN{integer} 7|181b16 181l62 181t68 288s36
+185i7 EN{integer} 7|180r46 181r54
+191U14*Init 7|47b14 57l8 57t12
+194V13*leer_sensor_izquierda{boolean} 7|82b13 85l8 85t29 378s21
+195V13*leer_sensor_derecha{boolean} 7|77b13 80l8 80t27 379s21
+196V13*ReadButton0{boolean} 7|93b13 93l121 93t132
+197V13*ReadButton1{boolean} 7|94b13 94l121 94t132
+198V13*leer_ir1{boolean} 7|87b13 87l120 87t128 382s19
+199V13*leer_ir2{boolean} 7|88b13 88l120 88t128 382s38
+200V13*leer_ir3{boolean} 7|89b13 89l120 89t128 382s57
+201V13*leer_ir4{boolean} 7|90b13 90l120 90t128 383s19
+202V13*leer_ir5{boolean} 7|91b13 91l120 91t128 383s38
+205U14*enviaSenyalON 7|62b14 65l8 65t21 354s10
+206U14*enviaSenyalOFF 7|67b14 70l8 70t22 352s10 356s10
+207V13*recibeSenyal{boolean} 7|72b13 75l8 75t20 359s16 365s16
+208U14*EnciendeRGB 208>27 208>35 7|96b14 100l8 100t19
+208e27 color0{16E9} 7|96b27 98r28
+208e35 color1{16E9} 7|96b35 99r28
+211U14*Avanza 7|105b14 111l8 111t14
+212U14*Para 7|113b14 119l8 119t12
+213U14*Girar_Izq 7|121b14 128l8 128t17
+214U14*Girar_Der 7|130b14 136l8 136t17
+215U14*Corregir_Izq 7|138b14 146l8 146t20
+216U14*Corregir_Der 7|148b14 154l8 154t20
+219t9*Sensorizacion 7|339b14 396l8 396t21
+220t9*PWM 7|233b14 254l8 254t11
+221t9*Cuenta 7|265b14 335l8 335t14
 X 7 gpio.adb
-8r4 BTN{6|22R9} 9m8 9r8 30m7 93r10 97r10
-11r4 RGB{6|41R9} 12m8 12r8 29m7 103m7 104m7
-14r4 P8LD{6|64R9} 15m8 15r8 31m7
-17r4 SWT{6|79R9} 18m8 18r8 32m7 60r10 65r10
-20r4 Ultra{6|116R9} 21m8 21r8 34m7 42m7 47m7 52r14
-23r4 Infra{6|100R9} 24m8 24r8 71r10 75r10 79r10 83r10 87r10
-152i7 period_U{3|61I9} 222r27
-153m7 t_ini{3|51M9}
-153m14 t_fin{3|51M9} 161m7 222m10 222r19 223r22
-153m21 t_echo_start{3|51M9} 183m10 187r26 194r47
-153m35 t_echo_end{3|51M9} 192m10 194r34
-153m47 inicio_timeout{3|51M9} 176m10 178r25
-154o7 duracion{duration} 194m10 195r29
-155f7 dist_calc{float} 195m10 196r39
-157b7 S_I{boolean} 203m10 205r39
-157b12 S_D{boolean} 204m10 205r44
-158b7 S_IR1{boolean} 207m10 214r13
-158b14 S_IR2{boolean} 208m10 215r13
-158b21 S_IR3{boolean} 209m10 216r13
-158b28 S_IR4{boolean} 210m10 217r13
-158b35 S_IR5{boolean} 211m10 218r13
-159i7 n_active{integer} 213m10 214m24 214r36 215m24 215r36 216m24 216r36
-. 217m24 217r36 218m24 218r36 220r41
-163l7 bucle_ext 225l16 225e25
-198L12 Saltarse_Calculo 179r21 188r21
+10r4 BTN{6|39R9} 11m8 11r8 50m7 93r52 94r52
+13r4 RGB{6|54R9} 14m8 14r8 49m7 98m7 99m7
+16r4 P8LD{6|73R9} 17m8 17r8 51m7 107m7 108m7 117m7 118m7 124m7 125m7 132m7
+. 133m7 142m8 143m8 150m8 151m8 242m21 243m21 248m10 249m10
+19r4 SWT{6|88R9} 20m8 20r8 52m7 79r10 84r10
+22r4 Ultra{6|124R9} 23m8 23r8 56m7 64m7 69m7 74r14
+25r4 Infra{6|109R9} 26m8 26r8 87r49 88r49 89r49 90r49 91r49
+32i4 Display_Reg{integer} 33m8 33r8
+42r4 Display{6|132R9} 43m8 43r8 209m7 313r42 319m10 324r42 329m10
+188U14 Escribir_Display_Raw 188b14 188>35 188>56 210l8 210t28
+188i35 Valor_7Seg{integer} 189r29 197r30
+188b56 Es_Decena{boolean} 202r10
+189i7 Mask_Num{integer}
+197i7 Val_Final{integer} 204m10 204r23 209r22
+213V13 IntTo7Seg{integer} 213b13 213>23 228l8 228t17 316s51 327s51
+213i23 Num{integer} 215r12
+235i7 Periodo{3|61I9} 251r35
+236i7 Duty{3|61I9} 245r34
+237m7 Siguiente{3|51M9} 239m7 245r22 251m10 251r23 252r22
+259V13 To_U32[5|20]{8|74M9} 313s35 316s44 324s35 327s44
+260V13 To_Int[5|20]{integer} 319s25 329s25
+266m7 next_t{3|51M9} 280m7 292r25 294m17
+266m15 next_refresh{3|51M9} 331m10 332r22
+267i7 cont{integer} 290m13 293m17 293r25 299r13 302r23 303r23
+268i7 EN_State{integer} 288m10 289r13 291r16
+269i7 Decena{integer} 300m13 302m13 306r30 316r61
+269i15 Unidad{integer} 300m27 303m13 307r30 327r61
+272m7 Valor_Actual_Registro{8|74M9} 313m10 319r33 324m10 329r33
+273m7 Mascara_Display{8|74M9} 284m7 319r59 329r59
+274m7 Nuevo_Valor_Display{8|74M9} 316m10 319r79 327m10 329r79
+277m7 Bit_CAT{8|74M9} 316r77
+340i7 period_U{3|61I9} 393r27
+341m7 t_ini{3|51M9}
+341m14 t_fin{3|51M9} 349m7 393m10 393r19 394r22
+341m21 t_echo_start{3|51M9} 364m10 366r26 371r47
+341m35 t_echo_end{3|51M9} 370m10 371r34
+341m47 inicio_timeout{3|51M9} 358m10 360r25
+342o7 duracion{duration} 371m10 372r29
+343f7 dist_calc{float} 372m10 373r39
+345b7 S_I_Loc{boolean} 378m10 380r39
+345b16 S_D_Loc{boolean} 379m10 380r48
+346b7 S_IR1{boolean} 382m10 386r13
+346b14 S_IR2{boolean} 382m29 387r13
+346b21 S_IR3{boolean} 382m48 388r13
+346b28 S_IR4{boolean} 383m10 389r13
+346b35 S_IR5{boolean} 383m29 390r13
+347i7 n_active{integer} 385m10 386m24 386r36 387m24 387r36 388m24 388r36
+. 389m24 389r36 390m24 390r36 391r41
+375L12 Saltarse_Calculo 361r21 367r21
+X 8 interfac.ads
+38K9*Interfaces 7|4w6 4r22 8|184e15
+74M9*Unsigned_32 7|259r81 260r62 272r31 273r31 274r31 277r26
+121V13*Shift_Left{74M9} 7|316s33 327s33
 X 9 system.ads
-45K9*System 6|1r6 2r6 2r34 7|3r6 9r24 12r24 15r25 18r24 21r26 24r26 9|168e11
+45K9*System 6|1r6 2r6 2r34 7|3r6 11r24 14r24 17r25 20r24 23r26 26r26 33r32
+. 43r28 9|168e11
 75M9*Address
 X 18 s-bbtime.ads
 46M9*Time
@@ -275,8 +391,9 @@ X 19 s-multip.ads
 X 25 s-secsta.ads
 46P9*SS_Stack_Ptr(43R9)
 X 27 s-stoele.ads
-42K16*Storage_Elements 6|1w13 7|3w13 9r31 12r31 15r32 18r31 21r33 24r33 27|117e28
-107V13*To_Address{9|75M9} 7|9s48 12s48 15s49 18s48 21s50 24s50
+42K16*Storage_Elements 6|1w13 7|3w13 11r31 14r31 17r32 20r31 23r33 26r33
+. 33r39 43r35 27|117e28
+107V13*To_Address{9|75M9} 7|11s48 14s48 17s49 20s48 23s50 26s50 33s56 43s52
 X 30 s-taskin.ads
 407V13*Get_Sec_Stack{25|46P9} 408i<c,__gnat_get_secondary_stack>22
 X 33 s-tarest.ads

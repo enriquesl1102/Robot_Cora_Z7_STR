@@ -2,181 +2,146 @@ with UART; use UART;
 with Ada.Real_Time; use ada.real_time;
 with gpio; use gpio;
 with System.Multiprocessors;use System.Multiprocessors;
+with Ada.Text_IO; use Ada.Text_IO; -- Para Put_Line si UART no es suficiente
 
 procedure Demo is
 
    izq, drcha : boolean;
    distancia, d_min, d_max : float;
-   n_inf, n_infL : integer; 
+   n_inf, n_infL : integer;
    
-   -- DEFICI�N DE LOS ESTADOS DE NUESTRA M�QUINA (a completar)
-   type estado is (Inicio, Avanzar, Girar_Izq, Girar_Der, Corregir_Izq, Corregir_Der, Meta);
+   -- Definimos estados ampliados
+   type estado is (Espera_Inicio, Avanzar, Girar_Izq, Girar_Der, Corregir_Izq, Corregir_Der, Meta, Pausa_Meta);
    eActual : estado;
-   -- eActual : estado; -- Variable que indica el estado actual
    
-   procedure Check_SMP is
-   begin
-      Put_Line("Cores disponibles: " & 
-                 CPU_Range'Image(System.Multiprocessors.Number_Of_CPUs));
-   
-      if System.Multiprocessors.Number_Of_CPUs >= 2 then
-         Put_Line("Sistema multicore detectado correctamente");
-      else
-         Put_Line("ADVERTENCIA: Solo se detect� 1 core");
-      end if;
-   end Check_SMP;
-   
+   -- Variables para lógica de botones
+   Btn_Start_Pressed : Boolean := False;
+   Btn_Reset_Pressed : Boolean := False;
+
 begin
-    -- UART0 => Cora board
+   -- Inicialización Hardware
    InitUART(nUart => 0);
+   Init; -- Inicializa GPIOs
    
-   -- Check_SMP;
+   -- Configuración Inicial
+   eActual := Espera_Inicio;
+   GPIO.Contador_ctrl.Set_EN(0); -- Reset contador
    
-   -- Procedure para inicializar los puertos GPIO de todos los dispositivos.
-   -- Importante. NO BORRAR
-   Init;
-
-   eActual := Inicio;
-   
-   -- Umbrales de distancia (ajustar según pruebas reales)
-
-   d_min := 10.0; --d_min := ; --  Distancia minima del ultrasonidos hasta la pared
-   d_max := 20.0; --d_max := ;Distancia maxima del ultrasonidos hasta la pared
-   
-   -- Mínimo de sensores IR para considerar "Meta" (4 o 5)
-
-   n_infL := 4;  --n_infL := ; -- Numero de infrarrojos inferiores m�nimos (en alto) para detectar meta
-
-   
+   -- Parámetros calibración (Ajustar en el lab)
+   d_min := 4.0;  -- cm. Si menor, está muy cerca pared derecha.
+   d_max := 20.0; -- cm. Si mayor, se aleja de pared derecha.
+   n_infL := 4;   -- Meta detectada si 4 o 5 sensores negros.
 
    loop
-      -- LECTURA DE SENSORES (a completar)
-      
-      -- Valor del sensor frontal izquierdo (IRF1)
-      izq :=  GPIO.Datos_Sensores.Get_S_I;
-      -- Valor del sensor frontal derecho (IRF2)
-      drcha := GPIO.Datos_Sensores.Get_S_D;  
-      
-      
-      -- N� de Infrarrojos inferiores detectados (IRI)
-      -- n_inf :=
+      -- 1. LECTURA DE SENSORES
+      izq := GPIO.Datos_Sensores.Get_S_I;
+      drcha := GPIO.Datos_Sensores.Get_S_D;
       n_inf := Datos_Sensores.Get_Infrarrojos;
-      
-      -- Valor de la distancia medida por el ultrasonidos (a completar - Sesi�n 2)
-      -- distancia := 
       distancia := Datos_Sensores.Get_Distancia;
       
-      ---------------------------------------------------------
-      Put_Line(""); -- Línea en blanco para separar iteraciones
-      ---Put_Line("--- ESTADO: " & estado'Image(eActual) & " ---");
+      -- Leemos botones físicos
+      Btn_Start_Pressed := GPIO.ReadButton0; 
+      Btn_Reset_Pressed := GPIO.ReadButton1;
 
-      -- Imprimimos booleanos
-      ---Put(" IRF_I: " & Boolean'Image(izq));
-      --Put_Line(" | IRF_D: " & Boolean'Image(drcha));
-      --Put_Line(" IRI_Activos: " & Integer'Image(n_inf));
-      
-      -- Imprimimos distancia por partes para evitar errores de buffer
-      Put(" Distancia: ");
-      Put(Float'Image(distancia)); 
-      Put_Line(" cm");
-      
-      Put_Line("----------------------------------");
-
-      -- IMPLEMENTACI�N DE LA M�QUINA DE ESTADOS (a completar)
-      
+      -- 2. MÁQUINA DE ESTADOS
       case eActual is
-         when Inicio =>
-            eActual := Avanzar;
+         
+         -- ESTADO 0: ESPERANDO ARRANQUE
+         when Espera_Inicio =>
+            GPIO.Para; -- Motores parados
+            GPIO.EnciendeRGB(blue, blue); -- Indicador visual: Listo
+            GPIO.Contador_ctrl.Set_EN(0); -- Contador a 0
+            
+            if Btn_Start_Pressed then
+               -- Esperar a que suelte el botón (debounce simple)
+               delay 0.5; 
+               eActual := Avanzar;
+               GPIO.Contador_ctrl.Set_EN(1); -- Iniciar Cronómetro
+            end if;
 
+         -- NAVEGACIÓN
          when Avanzar =>
-            -- Si detectamos la meta (4 o más sensores de suelo activos)
+            GPIO.Avanza;
+            GPIO.EnciendeRGB(green, green);
+            
+            -- Prioridad 1: Meta
             if n_inf >= n_infL then
                eActual := Meta;
             
-            -- Si hay obstáculo frontal (IRF)
+            -- Prioridad 2: Choque frontal inminente (IRF)
             elsif izq or drcha then
-               eActual := Girar_Izq; 
-
-            -- Lógica con Ultrasonidos (Control de pared derecha)
-            -- Si estamos muy cerca (< 10cm) -> Corregir a la izquierda
-            elsif distancia < d_min and distancia > 0.0 then -- >0 para evitar lecturas erróneas
+               eActual := Girar_Izq; -- Giramos a izq si hay obstáculo delante
+               
+            -- Prioridad 3: Pared lateral (Ultrasonidos)
+            elsif distancia < d_min and distancia > 0.1 then 
+               -- Muy cerca de la pared derecha -> Corregir a Izquierda
                eActual := Corregir_Izq;
-               
-            -- Si estamos muy lejos (> 20cm) -> Corregir a la derecha (acercarse)
-            -- Nota: Si es muy grande (> 50cm) podría ser una esquina/hueco
             elsif distancia > d_max then
+               -- Muy lejos de la pared (o hueco) -> Acercarse a derecha
+               -- OJO: Si distancia es enorme (>50cm) puede ser esquina abierta.
+               -- Algoritmo mano derecha: Si pierdo la pared, debo girar a la derecha para buscarla.
                eActual := Corregir_Der;
-               
             else
+               -- Distancia correcta, seguimos recto
                eActual := Avanzar;
             end if;
 
          when Girar_Izq =>
-            -- Giramos hasta que no haya obstáculo
+            GPIO.Girar_Izq;
+            GPIO.EnciendeRGB(blue, off);
+            -- Giramos hasta que se despeje el frente
             if not (izq or drcha) then
+               -- Añadir pequeño delay o histéresis si necesario
                eActual := Avanzar;
             end if;
             
+         when Girar_Der =>
+            -- Esto ocurre típicamente si perdemos la pared ("esquina convexa")
+            GPIO.Girar_Der;
+            GPIO.EnciendeRGB(off, blue);
+            -- Giramos hasta recuperar pared (distancia < d_max) o por tiempo
+            if distancia < d_max then
+                eActual := Avanzar;
+            end if;
+            
          when Corregir_Izq =>
-            -- Volvemos a avanzar cuando la distancia sea segura
-            if distancia >= d_min then
+            GPIO.Corregir_Izq;
+            GPIO.EnciendeRGB(violet, off);
+            if distancia >= d_min + 2.0 then -- Histéresis de 2cm
                eActual := Avanzar;
             end if;
 
          when Corregir_Der =>
-            -- Volvemos a avanzar cuando estemos cerca de nuevo
-            if distancia <= d_max then
+            GPIO.Corregir_Der;
+            GPIO.EnciendeRGB(off, violet);
+            if distancia <= d_max - 2.0 then
                eActual := Avanzar;
             end if;
 
+         -- META
          when Meta =>
-            null; -- Fin del trayecto
+            GPIO.Para;
+            GPIO.EnciendeRGB(red, red);
+            GPIO.Contador_ctrl.Set_EN(2); -- Parar contador (hold)
+            eActual := Pausa_Meta;
+            
+         when Pausa_Meta =>
+            GPIO.Para;
+            -- Esperar botón de Rearme (Reset)
+            if Btn_Reset_Pressed then
+               delay 0.5;
+               eActual := Espera_Inicio;
+            end if;
 
-         when others => 
-            eActual := Avanzar;
       end case;
       
-      -- ACTUADORES (LEDS por ahora)
-      case eActual is
-         when Avanzar => 
-            EnciendeRGB(green, green);
-         when Girar_Izq | Girar_Der => 
-            EnciendeRGB(blue, off); -- Indicar giro
-         when Corregir_Izq | Corregir_Der =>
-            EnciendeRGB(violet, violet); -- Indicar corrección suave
-         when Meta => 
-            EnciendeRGB(red, red);
-         when others => 
-            EnciendeRGB(off, off);
-      end case;
-
-      -- identificaci�n del estado
-      --  case eActual is
-      --     when Estado1 =>
-      --        if condicion then eActual := estadoX; end if;
-      --     when Estado2 =>
-      --        if condicion then eActual := estadoY;end if;
-      --        ...
-      --     when others => null;
-      --  end case;
-      --  
-      --  
-      --  
-      --  -- qu� hacer en cada estado
-      --  case eActual is
-      --     when Estado1 => Put_Line("M�quina en estado 1");
-      --     when Estado2 => Put_Line("M�quina en estado 2");
-      --     ...
-      --     when others => Put_Line("Estado inconsistente");
-      --  end case;
+      -- DEBUG POR CONSOLA (Opcional, ralentiza si es muy frecuente)
+      -- Put("Estado: " & estado'Image(eActual));
+      -- Put_Line(" Dist: " & Float'Image(distancia));
       
-      delay 0.25;
+      delay 0.05; -- Ciclo de control principal (20Hz aprox)
       
    end loop;
    
-   
-   -- No borrar la siguiente l�nea
    delay until Ada.Real_Time.Time_Last;
-   
 end Demo;
-
